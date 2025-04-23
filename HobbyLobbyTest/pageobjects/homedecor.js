@@ -1,5 +1,4 @@
 const { $ } = require('@wdio/globals')
-const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 class Homedecor {
 
