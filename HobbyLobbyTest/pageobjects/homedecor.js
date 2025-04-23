@@ -1,4 +1,5 @@
 const { $ } = require('@wdio/globals')
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 class Homedecor {
 
@@ -22,8 +23,8 @@ class Homedecor {
         return $('//label[@data-testid="meganav-home-decor-decor-&-pillows"]');
     }
 
-    get frameAndphotoAlbum() {
-        return $('//label[@data-testid="meganav-home-decor-frames-&-photo-albums"]');
+    get frameAndframingSupplies() {
+        return $('//label[@data-testid="meganav-home-decor-frames-&-framing-supplies"]');
     }
 
     get furniture() {
@@ -53,15 +54,21 @@ class Homedecor {
     get homeorganizationAndstorage() {
         return $('//label[@data-testid="meganav-home-decor-home-organization-&-storage"]');
     }
+    get exploreAllbtn() {
+        return $('.megaNavCard_megaNavExplore__EoEgG');
+    }
 
     open() {
         return browser.url(`https://www.hobbylobby.com/`);
     }
 
-    async arrowdownhomedecor() {
+    async arrowDownHomedecor() {
         await this.homeDecor.click();
+        await this.bathroomAndcloset.moveTo();
+
         for (let i = 0; i < 14; i++) {
             await browser.keys('ArrowDown');
+            await browser.pause(500)
         }
     }
 
@@ -73,7 +80,7 @@ class Homedecor {
             this.bedding,
             this.candleAndfragrance,
             this.decorAndpillow,
-            this.frameAndphotoAlbum,
+            this.frameAndframingSupplies,
             this.furniture,
             this.inspirationalBooks,
             this.kitchenAnddinnerware,
@@ -82,9 +89,16 @@ class Homedecor {
             this.mirrorsAndwalldecors,
             this.homeorganizationAndstorage
         ];
+
         for (let i = 0; i < categories.length; i++) {
             await categories[i].click();
         }
+    }
+
+    async exploreBtn() {
+        await this.homeDecor.click();
+        await this.exploreAllbtn.click();
+        await browser.scroll(0, 1000);
     }
 }
 

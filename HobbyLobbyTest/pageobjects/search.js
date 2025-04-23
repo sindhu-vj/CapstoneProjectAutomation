@@ -15,12 +15,19 @@ class Search {
         return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
     }
 
+    get resultmsg() {
+        return $('.common_emptyBook__Sq_hB h3');
+    }
+
     get suggestionpane() {
         return $('.aa-PanelLayout.aa-Panel--scrollable');
     }
 
     get autosearch() {
         return $$('li.aa-Item');
+    }
+    get autoSuggestionforMirror() {
+        return $('section.aa-Source');
     }
 
     get firstSearchResults() {
@@ -31,16 +38,31 @@ class Search {
         return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
     }
 
-
     open() {
         return browser.url(`https://www.hobbylobby.com/`);
     }
-
-
-    async search(item) {
+    async searchText(item) {
         await this.searchInput.setValue(item);
         await this.searchIcon.click();
+    }
+
+    async search(item) {
+        await this.searchText(item);
         await expect(this.resultHeader).toExist('Results for ' + item);
+    }
+
+    async msg(item) {
+        await this.searchText(item);
+        await expect(this.resultmsg).toExist('Oops! No matches for “abababa”');
+    }
+
+    async specialCharacters(item) {
+        await this.searchText(item);
+        await expect(this.expectsearchText).toExist('Results for "*!*#"');
+    }
+    async autoLetters(item) {
+        await this.searchInput.setValue(item);
+        await expect(this.autoSuggestionforMirror).toBeDisplayed();
     }
 
     async autosearch(item) {
