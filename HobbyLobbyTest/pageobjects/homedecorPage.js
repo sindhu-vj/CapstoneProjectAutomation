@@ -1,6 +1,7 @@
-const { $ } = require('@wdio/globals')
+import { browser, expect } from '@wdio/globals'
+import Basepage from './basePage';
 
-class Homedecor {
+class Homedecor extends Basepage {
 
     get homeDecor() {
         return $$('[class="header_headerButton__VxgmY"]')[1];
@@ -53,12 +54,13 @@ class Homedecor {
     get homeorganizationAndstorage() {
         return $('//label[@data-testid="meganav-home-decor-home-organization-&-storage"]');
     }
+    
     get exploreAllbtn() {
         return $('.megaNavCard_megaNavExplore__EoEgG');
     }
 
-    open() {
-        return browser.url(`https://www.hobbylobby.com/`);
+    load () {
+        return super.load();
     }
 
     async arrowDownHomedecor() {
@@ -67,7 +69,8 @@ class Homedecor {
 
         for (let i = 0; i < 14; i++) {
             await browser.keys('ArrowDown');
-            await browser.pause(500)
+            await expect(this.exploreAllbtn).toExist();
+            
         }
     }
 
@@ -89,9 +92,14 @@ class Homedecor {
             this.homeorganizationAndstorage
         ];
 
-        for (let i = 0; i < categories.length; i++) {
-            await categories[i].click();
+        // for (let i = 0; i < categories.length; i++) {
+        //     await categories[i].click();
+        // }
+        for (const category of categories) {
+            await category.waitForClickable({ timeout: 5000 }); 
+            await category.click();          
         }
+            await expect(this.exploreAllbtn).toExist();
     }
 
     async exploreBtn() {
@@ -101,4 +109,4 @@ class Homedecor {
     }
 }
 
-module.exports = new Homedecor();
+export default new Homedecor();

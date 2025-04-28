@@ -1,94 +1,93 @@
-const { $ } = require('@wdio/globals');
-const Search = require('../pageobjects/search');
-const WeeklyAd = require('../pageobjects/weeklyAd');
-const Homedecor = require('../pageobjects/homedecor');
-const Cart = require('../pageobjects/cart');
+// import { $} from '@wdio/globals';
+import Search from '../pageobjects/searchPage';
+import WeeklyAd from '../pageobjects/weeklyAdPage';
+import Homedecor from '../pageobjects/homedecorPage';
+import Cart from '../pageobjects/cartPage';
 
 describe('Hobby Lobby', () => {
     it('should search for a product and display the results', async () => {
-        await Search.open();
+        await Search.load();
         await Search.search('Mirror');
     });
 
-    it('should display no matches found when enter a random text in the input field', async () => {
-        await Search.open();
+    it('should display No matches found when entering a random text into input field', async () => {
+        await Search.load();
         await Search.msg('abababa');
     });
 
-    it('should display a set of products list when a random characters are entered in the input field', async () => {
-        await Search.open();
+    it('should display list of products when a random characters are entered into input field', async () => {
+        await Search.load();
         await Search.specialCharacters('*!*#');
     });
 
-    it('should automatically suggest the products name when first 3 letters are entered', async () => {
-        await Search.open();
+    it('should automatically suggest the product names when first 3 letters are entered', async () => {
+        await Search.load();
         await Search.autoLetters('Mir');
     });
 
     it('Auto suggestions', async () => {
-        await Search.open();
+        await Search.load();
         await Search.autosearch('easter');
     });
 
-    it('should change the color of weeklyad button when it is hovered', async () => {
-        await WeeklyAd.open();
+    it('should change the color of weeklyad button when it is hovered over', async () => {
+        await WeeklyAd.load();
         await WeeklyAd.hoverColor('rgba(0,0,0,0.87)');
     });
 
-    it('should display weeklyad page and the details when WeeklyAd button is clicked ', async () => {
-        await WeeklyAd.open();
+    // it.only('should click the weeklyAd button and display the related content', async () => {
+    //     await WeeklyAd.load();
+    //     await WeeklyAd.topTitle('Shop Weekly Ad')
+    // });
+
+    it('should display weeklyad page and its details when the WeeklyAd button is clicked ', async () => {
+        await WeeklyAd.load();
         await WeeklyAd.weeklyAdflow();
     });
 
     it('should display Weekly Ad image when View the WeeklyAd button is clicked', async () => {
-        await WeeklyAd.open();
-        await WeeklyAd.weeklyAdflow();
+        await WeeklyAd.load();
+        await WeeklyAd.viewAdbtn();
     });
 
-    it('should return to the Weekly Ad page when return to site is clicked', async () => {
-        await WeeklyAd.open();
-        await WeeklyAd.weeklyAdflow();
+    it('should return to the Weekly Ad page when return to site link is clicked', async () => {
+        await WeeklyAd.load();
+        await WeeklyAd.returnTosite();
     });
 
-    it('should click on the weeklyAd button and display the related content', async () => {
-        await WeeklyAd.open();
-        await WeeklyAd.headerCheck('Shop Weekly Ad')
+    it('should enter an Email id in the input field to receive weeklyads', async () => {
+        await WeeklyAd.load();
+        await WeeklyAd.signupCheck('dummyemail@example.com', 'Thank you for signing up');
     });
 
-    it('should add Email id in the input field to receive weeklyads', async () => {
-        await WeeklyAd.open();
-        await WeeklyAd.signupCheck('sinqalearning@gmail.com', 'Thank you for signing up');
-    });
-
-    it('should display the cart icon on the top right of the homepage and should be clickable', async () => {
-        await Cart.open();
+    it('should display the cart icon at the top right of the homepage and be clickable', async () => {
+        await Cart.load();
         await Cart.cartIconcheck();
     });
 
-    it('should return to the homepage when HOBBY LOBBY is clicked', async () => {
-        await Cart.open();
+    it('should return to the homepage when HOBBY LOBBY logo is clicked', async () => {
+        await Cart.load();
         await Cart.homepageReturn();
     });
 
     it('should add one of the Featured products to the cart', async () => {
-        await Cart.open();
-        await Cart.addingSingleitem();
+        await Cart.load();
+        await Cart.addingSingleItem();
     });
 
-    it('should add items to the cart', async () => {
-        await Cart.open();
+    it('should add multiple items to the cart successfully', async () => {
+        await Cart.load();
         await Search.searchText('Summer Toys');
-        await browser.scroll(0, 400);
-        await Cart.verifyCartPage();
+        await Cart.addingMultipleItems();
     });
 
-    it('Should delete items from the cart when delete button is clicked', async () => {
+    it('Should remove items from the cart when delete button is clicked', async () => {
         await Cart.cartPage();
         await Cart.deleteItems();
     });
 
     it('should increase the quantity of an item in the cart when (+) icon is clicked', async () => {
-        await Cart.open();
+        await Cart.load();
         await Cart.increasingTheitems('summer outdoor games');
     });
 
@@ -97,28 +96,29 @@ describe('Hobby Lobby', () => {
         await Cart.decreasingTheitems();
     });
 
-    it('should change the color of the favorite icon to red when it is clicked', async () => {
+    it('should change the color of the favorite icon to red when clicked', async () => {
         await Cart.cartPage();
-        await Cart.favoriteProductIcon.click();
+        await Cart.favoriteIcon();
     });
 
-    it('should display list of items when Home Decor component is clicked', async () => {
-        await Homedecor.open();
+    it('should display a list of items when Home Decor component is clicked', async () => {
+        await Homedecor.load();
         await Homedecor.homeDecor.click();
     });
 
     it('should highlight all the dropdown items when Home Decor component is clicked', async () => {
-        await Homedecor.open();
+        await Homedecor.load();
         await Homedecor.arrowDownHomedecor();
     });
 
-    it('should click each categories under Home decor', async () => {
-        await Homedecor.open();
+    it('should click each category under Home decor', async () => {
+        await Homedecor.load();
         await Homedecor.categories();
+
     });
 
-    it('should click the Explore all button to display a Home Decor products across all related Categories', async () => {
-        await Homedecor.open();
+    it('should click the Explore all button to display Home Decor products across all related Categories', async () => {
+        await Homedecor.load();
         await Homedecor.exploreBtn();
     })
 })

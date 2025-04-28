@@ -1,6 +1,7 @@
-const { $ } = require('@wdio/globals')
+import { browser, expect } from '@wdio/globals'
+import Basepage from './basePage.js';
 
-class Cart {
+class Cart extends Basepage {
 
     get cartIcon() {
         return $('[data-testid="ShoppingCartOutlinedIcon"]');
@@ -106,8 +107,8 @@ class Cart {
         return $('.lists_header__n7XKg');
     }
 
-    open() {
-        return browser.url(`https://www.hobbylobby.com/`);
+    load () {
+        return super.load();
     }
 
     cartPage() {
@@ -124,7 +125,7 @@ class Cart {
         await this.hobbyLobbyheader.click();
     }
 
-    async addingSingleitem() {
+    async addingSingleItem() {
         await browser.scroll(0, 3000);
         await this.featuredItem.click();
         await this.viewCartbtn.click();
@@ -133,14 +134,7 @@ class Cart {
         await expect(this.total).toBeDisplayed();
     }
 
-    async deleteItems() {
-
-        for (let i = 0; i < 3; i++) {
-            await this.deleteBtn.click();
-        }
-    }
-
-    async verifyCartPage() {
+    async addingMultipleItems() {
         const products = [this.product1, this.product2];
 
         for (let i = 0; i < products.length; i++) {
@@ -155,6 +149,15 @@ class Cart {
 
         for (const Elements of checkElements) {
             await expect(Elements).toBeDisplayed();
+        }
+        await browser.scroll(0, 400);
+    }
+    
+    async deleteItems() {
+
+        for (let i = 0; i < 4; i++) {
+            await this.deleteBtn.click();
+            await browser.pause(2000)
         }
     }
 
@@ -176,6 +179,10 @@ class Cart {
         }
     }
 
+    async favoriteIcon() {
+        await this.favoriteProductIcon.click();
+    }
+
 }
 
-module.exports = new Cart();
+export default new Cart();

@@ -1,7 +1,7 @@
-const { $ } = require('@wdio/globals')
+import { browser, expect } from '@wdio/globals'
+import Basepage from './basePage';
 
-
-class Search {
+class Search extends Basepage {
 
     get searchInput() {
         return $('input#autocomplete-1-input');
@@ -37,10 +37,11 @@ class Search {
     get expectsearchText() {
         return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
     }
-
-    open() {
-        return browser.url(`https://www.hobbylobby.com/`);
+   
+    load () {
+        return super.load();
     }
+    
     async searchText(item) {
         await this.searchInput.setValue(item);
         await this.searchIcon.click();
@@ -48,7 +49,7 @@ class Search {
 
     async search(item) {
         await this.searchText(item);
-        await expect(this.resultHeader).toExist('Results for ' + item);
+        await expect(this.resultHeader).toExist('Results for "Mirror"');
     }
 
     async msg(item) {
@@ -75,4 +76,4 @@ class Search {
     }
 }
 
-module.exports = new Search();
+export default new Search();

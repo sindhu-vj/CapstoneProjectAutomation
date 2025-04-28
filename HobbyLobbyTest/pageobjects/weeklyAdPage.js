@@ -1,22 +1,39 @@
-const { $ } = require('@wdio/globals')
+import { browser, expect } from '@wdio/globals'
+import Basepage from './basePage';
 
-class WeeklyAd {
+class WeeklyAd extends Basepage{
 
     get weeklyAdbtn() {
         return $('.header_weeklyAdButton__rWqDS');
     }
-
-    get weeklyAdbtnHeader() {
-        return $('.header_weeklyAd__h1TpF');
+    
+    get topTitle() {
+        return $('//h2[contains(text(), "Shop Weekly Ad")]')
     }
 
-    get weekAdmiddleThumbnail() {
+    // get weeklyAdbtnHeader() {
+    //     return $('.header_weeklyAd__h1TpF');
+    // }
+
+    get weeklyAdmiddleThumbnail() {
         return $('.weeklyAd_weeklyAdMiddleThumbnail__3ulnp');
     }
+    
+    get weeklyAdmiddleHighlightedad() {
+        return $('.weeklyAd_weeklyAdMiddleHighlightedAd__ZWLcb');
+    }
 
-    get weekAdtiles() {
+    get weeklyAdtiles() {
         return $('.weeklyAd_weeklyAdTiles__g_bxW');
     }
+    
+    // weeklyAdthumbnail(Parameter){
+    //     return $(`//section[contains(@class, "weeklyAd_weeklyAd${Parameter}")]`)
+    //     }
+
+    // weeklyAdtiles(Parameter) {
+    //     return $(`//section[contains(@class, "weeklyAd_weeklyAd${Parameter}")]`)
+    // }
 
     get signupSection() {
         return $('.MuiPaper-root.MuiPaper-outlined.signUpSubscription_signupCard__Lc5lV.mui-style-1wuq9c7');
@@ -30,7 +47,7 @@ class WeeklyAd {
         return $('#HLWeeklyAdButton');
     }
 
-    get returnTosite() {
+    get returnTositeLink() {
         return $('div.header_cartReturnDesk__DAqV_');
     }
 
@@ -62,12 +79,12 @@ class WeeklyAd {
         return $('[data-testid="email-signup-confirm"]')
     }
 
-    async checkText(item) {
-        await expect(this.getText).toHaveText(item);
+    load () {
+        return super.load();
     }
 
-    open() {
-        return browser.url(`https://www.hobbylobby.com/`);
+    async checkText(item) {
+        await expect(this.getText).toHaveText(item);
     }
 
     async hoverColor(color) {
@@ -76,26 +93,40 @@ class WeeklyAd {
         await expect(colorProp.value).toBe(color);
     }
 
-    async headerCheck(header) {
-        await this.weeklyAdbtn.click();
-        await expect(this.weeklyAdbtnHeader).toExist(header);
-    }
+    // async headerCheck(header) {
+    //     await this.weeklyAdbtn.click();
+    //     await expect(this.weeklyAdbtnHeader).toExist(header);
+    // }
+    
     async weeklyAdflow() {
         await this.weeklyAdbtn.click();
         await browser.scroll(0, 300);
         await this.viewTheWeeklyadbtn.click();
-        await this.returnTosite.click();
-        await expect(this.weekAdmiddleThumbnail).toBeDisplayed();
-        await expect(this.weekAdtiles).toBeDisplayed();
-        await browser.scroll(0, 5000);
+        await this.returnTositeLink.click();
+        await expect(this.weeklyAdmiddleThumbnail).toBeDisplayed();
+        await expect(this.weeklyAdmiddleHighlightedad).toBeDisplayed();
+        // await expect(await this.weeklyAdthumbnail('MiddleThumbnail')).toBeDisplayed();
+        // await expect(await this.weeklyAdtiles('Tiles')).toExist();
+        await expect(this.weeklyAdtiles).toBeDisplayed();
+        // await browser.scroll(0, 5000);
         await expect(this.signupSection).toBeDisplayed();
     }
-    async viewAdbtn() {
+    
+    async navigateToWeeklyAd() {
         await this.weeklyAdbtn.click();
-        await browser.scroll(0, 300);
-        await browser.pause(1000)
+        await browser.scroll(0, 2000);
         await this.viewTheWeeklyadbtn.click();
+    }
+    
+    async viewAdbtn() {
+        await this.navigateToWeeklyAd.call(this);
         await expect(this.subweeklyAdimage).toBeDisplayed();
+    }
+   
+    async returnTosite() {
+        await this.navigateToWeeklyAd.call(this);
+        await this.returnTositeLink.click();
+        await expect(this.topTitle).toBeDisplayed();
     }
 
     async signupCheck(email, msg) {
@@ -105,4 +136,4 @@ class WeeklyAd {
         await expect(this.alertMessage).toExist(msg);
     }
 }
-module.exports = new WeeklyAd();
+export default new WeeklyAd();
