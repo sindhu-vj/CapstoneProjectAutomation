@@ -27,9 +27,12 @@ class Homedecor extends Basepage {
         return super.load();
     }
 
+    async homedecorComponent() {
+        await this.homeDecor.click();
+    }
+
     async arrowDownHomedecor() {
         await this.homeDecor.click();
-        // await this.bathroomAndcloset.waitForExist();
         await this.bathroomAndcloset.moveTo();
         const dropdownItems = await this.dropdownList;
 

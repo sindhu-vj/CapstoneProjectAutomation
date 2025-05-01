@@ -98,7 +98,7 @@ describe('Hobby Lobby', () => {
 
     it('should display a list of items when Home Decor component is clicked', async () => {
         await Homedecor.load();
-        await Homedecor.homeDecor.click();
+        await Homedecor.homedecorComponent();
     });
 
     it('should highlight all the dropdown items under Home decor', async () => {
@@ -106,9 +106,9 @@ describe('Hobby Lobby', () => {
         await Homedecor.arrowDownHomedecor();
     });
 
-    it.only('should click each category under Home decor', async () => {
+    it('should click each category under Home decor', async () => {
         await Homedecor.load();
-        await Homedecor.homeDecorDropdown()
+        await Homedecor.homeDecorDropdown();
         });
     
 
