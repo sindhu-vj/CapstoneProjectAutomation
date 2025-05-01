@@ -1,4 +1,3 @@
-// import { $} from '@wdio/globals';
 import Search from '../pageobjects/searchPage';
 import WeeklyAd from '../pageobjects/weeklyAdPage';
 import Homedecor from '../pageobjects/homedecorPage';
