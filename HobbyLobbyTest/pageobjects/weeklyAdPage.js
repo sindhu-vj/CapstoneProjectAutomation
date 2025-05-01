@@ -18,10 +18,6 @@ class WeeklyAd extends Basepage{
     get weeklyAdmiddleThumbnail() {
         return $('.weeklyAd_weeklyAdMiddleThumbnail__3ulnp');
     }
-    
-    // get weeklyAdmiddleHighlightedad() {
-    //     return $('.weeklyAd_weeklyAdMiddleHighlightedAd__ZWLcb');
-    // }
 
     get weeklyAdtiles() {
         return $('.weeklyAd_weeklyAdTiles__g_bxW');
@@ -29,12 +25,8 @@ class WeeklyAd extends Basepage{
     
     weeklyAdAds(parameter) {
         return $(`//section[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
-        }
+    }
 
-    // weeklyAdmiddleHighlightedad(parameter) {
-    //         return $(`//section[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
-    //         }
-    
     weeklyAdtiles(parameter) {
         return $(`//div[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
      }
@@ -131,13 +123,3 @@ class WeeklyAd extends Basepage{
     }
 }
 export default new WeeklyAd();
-
-
-
-
-
-// get homedecorDropdown () {
-//     // return $('//label[@data-testid="meganav-home-decor-${"parameter"}]');
-//     // return $(`//label[contains(@data-testid, "meganav-home-decor-${parameter}")]`)
-//     return $$(`//section[contains(@class, "megaNavCard_megaNavCategoryToolbar")]`)
-// }
