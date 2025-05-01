@@ -1,4 +1,4 @@
-import { browser, expect } from '@wdio/globals'
+import { $$, browser, expect } from '@wdio/globals'
 import Basepage from './basePage.js';
 
 class Cart extends Basepage {
@@ -99,12 +99,12 @@ class Cart extends Basepage {
         return $('button.cartProductTile_deleteButton__Cfe9X');
     }
 
-    get favoriteProductIcon() {
+    get favoriteProductIconUnfilled() {
         return $$('svg[data-testid="FavoriteBorderIcon"]')[1];
     }
-
-    get favoriteProductMainicon() {
-        return $$('svg[data-testid="FavoriteBorderIcon"]')[0];
+ 
+    get favoriteProductIconFilled() {
+        return $$('svg[data-testid="FavoriteIcon"]')[0];
     }
 
     get viewListbutton() {
@@ -193,7 +193,8 @@ class Cart extends Basepage {
 
     async favoriteIcon() {
         await this.addingOneItem();
-        await this.favoriteProductIcon.click();
+        await this.favoriteProductIconUnfilled.click();
+        await expect(this.favoriteProductIconFilled).toBeDisplayed();
     }
 }
 

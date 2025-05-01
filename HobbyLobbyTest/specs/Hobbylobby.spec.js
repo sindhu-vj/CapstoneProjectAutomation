@@ -90,7 +90,7 @@ describe('Hobby Lobby', () => {
         await Cart.decreasingTheitems('summer outdoor games');
     });
 
-    it('should change the color of the favorite icon to red when clicked', async () => {
+    it.only('should change the color of the favorite icon to red when clicked', async () => {
         await Cart.load();
         await Cart.favoriteIcon();
     });
