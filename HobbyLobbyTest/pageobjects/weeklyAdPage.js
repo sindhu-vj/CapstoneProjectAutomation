@@ -98,17 +98,17 @@ class WeeklyAd extends Basepage{
         await expect(this.signupSection).toBeDisplayed();
     }
     
+    async viewAdbtn() {
+        await this.navigateToWeeklyAd.call(this);
+        await expect(this.subweeklyAdimage).toBeDisplayed();
+    }
+
     async navigateToWeeklyAd() {
         await this.weeklyAdbtn.click();
         await browser.scroll(0, 2000);
         await this.viewTheWeeklyadbtn.click();
     }
     
-    async viewAdbtn() {
-        await this.navigateToWeeklyAd.call(this);
-        await expect(this.subweeklyAdimage).toBeDisplayed();
-    }
-   
     async returnTosite() {
         await this.navigateToWeeklyAd.call(this);
         await this.returnTositeLink.click();
@@ -122,4 +122,5 @@ class WeeklyAd extends Basepage{
         await expect(this.alertMessage).toExist(msg);
     }
 }
+
 export default new WeeklyAd();

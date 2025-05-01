@@ -6,4 +6,3 @@ export default class Basepage {
         return browser.url(`https://www.hobbylobby.com/`);
     } 
 }
-

@@ -39,7 +39,7 @@ describe('Hobby Lobby', () => {
         await WeeklyAd.weeklyAdflow();
     });
 
-    it('should display Weekly Ad image when View the WeeklyAd button is clicked', async () => {
+    it('should display sub weekly Ad image when View the WeeklyAd button is clicked', async () => {
         await WeeklyAd.load();
         await WeeklyAd.viewAdbtn();
     });

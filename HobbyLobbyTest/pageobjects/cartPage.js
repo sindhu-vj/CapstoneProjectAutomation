@@ -124,14 +124,15 @@ class Cart extends Basepage {
     }
 
     async cartIconcheck() {
-        await expect(this.cartIcon).toBeDisplayed();
         await this.cartIcon.click();
+        await expect(this.cartIcon).toBeDisplayed();
     }
 
     async homepageReturn() {
         await this.cartIcon.click();
         await this.hobbyLobbyheader.click();
     }
+    
     async addingOneItem() {
         await browser.scroll(0, 3000);
         await this.featuredItem.click();
@@ -194,7 +195,6 @@ class Cart extends Basepage {
         await this.addingOneItem();
         await this.favoriteProductIcon.click();
     }
-
 }
 
 export default new Cart();

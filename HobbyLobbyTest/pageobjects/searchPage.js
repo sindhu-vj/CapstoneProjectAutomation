@@ -11,6 +11,10 @@ class Search extends Basepage {
         return $('.autoComplete_searchButton__aHJbS');
     }
 
+    get productNames() {
+        return $('.card_title___g5fi');
+    }
+
     get resultHeader() {
         return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
     }
@@ -26,6 +30,7 @@ class Search extends Basepage {
     get autosearch() {
         return $$('li.aa-Item');
     }
+    
     get autoSuggestionforMirror() {
         return $('section.aa-Source');
     }
@@ -61,6 +66,7 @@ class Search extends Basepage {
         await this.searchText(item);
         await expect(this.expectsearchText).toExist('Results for "*!*#"');
     }
+    
     async autoLetters(item) {
         await this.searchInput.setValue(item);
         await expect(this.autoSuggestionforMirror).toBeDisplayed();
