@@ -86,7 +86,15 @@ class Cart extends Basepage {
     get decrementBtn() {
         return $('button.cartProductTile_decrement__KyGOI');
     }
-
+    
+    get mothersdayGifts() {
+        return $('//img[@alt="Mother\'s Day Gift Ideas"]');
+    }
+    
+    get giftItem1() {
+        return $('//button[@id=":R439j7aq6:"]');
+    }
+    
     get deleteBtn() {
         return $('button.cartProductTile_deleteButton__Cfe9X');
     }
@@ -124,11 +132,14 @@ class Cart extends Basepage {
         await this.cartIcon.click();
         await this.hobbyLobbyheader.click();
     }
-
-    async addingSingleItem() {
+    async addingOneItem() {
         await browser.scroll(0, 3000);
         await this.featuredItem.click();
         await this.viewCartbtn.click();
+    }
+    
+    async addingSingleItem() {
+        await this.addingOneItem();
         await expect(this.currentPrice).toBeDisplayed();
         await expect(this.orderSummary).toBeDisplayed();
         await expect(this.total).toBeDisplayed();
@@ -153,13 +164,13 @@ class Cart extends Basepage {
         await browser.scroll(0, 400);
     }
     
-    async deleteItems() {
-
-        for (let i = 0; i < 4; i++) {
-            await this.deleteBtn.click();
-            await browser.pause(2000)
-        }
-    }
+     async deleteItems() {
+        await browser.scroll(0, 1300);
+        await this.mothersdayGifts.click();
+        await this.giftItem1.click();
+        await this.viewCartbtn.click();
+        await this.deleteBtn.click();
+     }
 
     async increasingTheitems(item) {
         await this.searchInput.setValue(item);
@@ -172,14 +183,15 @@ class Cart extends Basepage {
         }
     }
 
-    async decreasingTheitems() {
-
-        for (let i = 0; i < 5; i++) {
+    async decreasingTheitems(item) {
+        await this.increasingTheitems(item);
+        for (let i = 0; i < 5 ; i++) {
             await this.decrementBtn.click();
         }
     }
 
     async favoriteIcon() {
+        await this.addingOneItem();
         await this.favoriteProductIcon.click();
     }
 

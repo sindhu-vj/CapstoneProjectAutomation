@@ -11,29 +11,33 @@ class WeeklyAd extends Basepage{
         return $('//h2[contains(text(), "Shop Weekly Ad")]')
     }
 
-    // get weeklyAdbtnHeader() {
-    //     return $('.header_weeklyAd__h1TpF');
-    // }
+    get weeklyAdbtnHeader() {
+        return $('.header_weeklyAd__h1TpF');
+    }
 
     get weeklyAdmiddleThumbnail() {
         return $('.weeklyAd_weeklyAdMiddleThumbnail__3ulnp');
     }
     
-    get weeklyAdmiddleHighlightedad() {
-        return $('.weeklyAd_weeklyAdMiddleHighlightedAd__ZWLcb');
-    }
+    // get weeklyAdmiddleHighlightedad() {
+    //     return $('.weeklyAd_weeklyAdMiddleHighlightedAd__ZWLcb');
+    // }
 
     get weeklyAdtiles() {
         return $('.weeklyAd_weeklyAdTiles__g_bxW');
     }
     
-    // weeklyAdthumbnail(Parameter){
-    //     return $(`//section[contains(@class, "weeklyAd_weeklyAd${Parameter}")]`)
-    //     }
+    weeklyAdAds(parameter) {
+        return $(`//section[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
+        }
 
-    // weeklyAdtiles(Parameter) {
-    //     return $(`//section[contains(@class, "weeklyAd_weeklyAd${Parameter}")]`)
-    // }
+    // weeklyAdmiddleHighlightedad(parameter) {
+    //         return $(`//section[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
+    //         }
+    
+    weeklyAdtiles(parameter) {
+        return $(`//div[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
+     }
 
     get signupSection() {
         return $('.MuiPaper-root.MuiPaper-outlined.signUpSubscription_signupCard__Lc5lV.mui-style-1wuq9c7');
@@ -87,28 +91,18 @@ class WeeklyAd extends Basepage{
         await expect(this.getText).toHaveText(item);
     }
 
-    async hoverColor(color) {
+    async hoverColor(expectedcolor) {
         await this.weeklyAdbtn.moveTo();
         const colorProp = await this.weeklyAdbtnHeader.getCSSProperty('color');
-        await expect(colorProp.value).toBe(color);
+        await expect(colorProp.value).toBe(expectedcolor);
     }
 
-    // async headerCheck(header) {
-    //     await this.weeklyAdbtn.click();
-    //     await expect(this.weeklyAdbtnHeader).toExist(header);
-    // }
-    
     async weeklyAdflow() {
         await this.weeklyAdbtn.click();
-        await browser.scroll(0, 300);
-        await this.viewTheWeeklyadbtn.click();
-        await this.returnTositeLink.click();
-        await expect(this.weeklyAdmiddleThumbnail).toBeDisplayed();
-        await expect(this.weeklyAdmiddleHighlightedad).toBeDisplayed();
-        // await expect(await this.weeklyAdthumbnail('MiddleThumbnail')).toBeDisplayed();
-        // await expect(await this.weeklyAdtiles('Tiles')).toExist();
-        await expect(this.weeklyAdtiles).toBeDisplayed();
-        // await browser.scroll(0, 5000);
+        await expect(await this.weeklyAdAds('MiddleThumbnail')).toBeDisplayed();
+        await expect(await this.weeklyAdAds('MiddleHighlightedAd')).toBeDisplayed();
+        await expect(await this.weeklyAdtiles('Tiles')).toBeDisplayed();
+        await browser.scroll(0, 5000);
         await expect(this.signupSection).toBeDisplayed();
     }
     
@@ -137,3 +131,13 @@ class WeeklyAd extends Basepage{
     }
 }
 export default new WeeklyAd();
+
+
+
+
+
+// get homedecorDropdown () {
+//     // return $('//label[@data-testid="meganav-home-decor-${"parameter"}]');
+//     // return $(`//label[contains(@data-testid, "meganav-home-decor-${parameter}")]`)
+//     return $$(`//section[contains(@class, "megaNavCard_megaNavCategoryToolbar")]`)
+// }

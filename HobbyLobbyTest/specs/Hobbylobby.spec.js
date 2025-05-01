@@ -35,11 +35,6 @@ describe('Hobby Lobby', () => {
         await WeeklyAd.hoverColor('rgba(0,0,0,0.87)');
     });
 
-    // it.only('should click the weeklyAd button and display the related content', async () => {
-    //     await WeeklyAd.load();
-    //     await WeeklyAd.topTitle('Shop Weekly Ad')
-    // });
-
     it('should display weeklyad page and its details when the WeeklyAd button is clicked ', async () => {
         await WeeklyAd.load();
         await WeeklyAd.weeklyAdflow();
@@ -81,8 +76,8 @@ describe('Hobby Lobby', () => {
         await Cart.addingMultipleItems();
     });
 
-    it('Should remove items from the cart when delete button is clicked', async () => {
-        await Cart.cartPage();
+    it ('Should remove items from the cart when delete button is clicked', async () => {
+        await Cart.load();
         await Cart.deleteItems();
     });
 
@@ -92,12 +87,12 @@ describe('Hobby Lobby', () => {
     });
 
     it('should decrease the quantity of an item in the cart when (-) icon is clicked', async () => {
-        await Cart.cartPage();
-        await Cart.decreasingTheitems();
+        await Cart.load();
+        await Cart.decreasingTheitems('summer outdoor games');
     });
 
     it('should change the color of the favorite icon to red when clicked', async () => {
-        await Cart.cartPage();
+        await Cart.load();
         await Cart.favoriteIcon();
     });
 
@@ -106,20 +101,20 @@ describe('Hobby Lobby', () => {
         await Homedecor.homeDecor.click();
     });
 
-    it('should highlight all the dropdown items when Home Decor component is clicked', async () => {
+    it('should highlight all the dropdown items under Home decor', async () => {
         await Homedecor.load();
         await Homedecor.arrowDownHomedecor();
     });
 
-    it('should click each category under Home decor', async () => {
+    it.only('should click each category under Home decor', async () => {
         await Homedecor.load();
-        await Homedecor.categories();
-
-    });
+        await Homedecor.homeDecorDropdown()
+        });
+    
 
     it('should click the Explore all button to display Home Decor products across all related Categories', async () => {
         await Homedecor.load();
-        await Homedecor.exploreBtn();
+        await Homedecor.exploreBtn("I/'m looking for");
     })
 })
 
