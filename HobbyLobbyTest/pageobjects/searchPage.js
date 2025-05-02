@@ -11,10 +11,6 @@ class Search extends Basepage {
         return $('.autoComplete_searchButton__aHJbS');
     }
 
-    get productNames() {
-        return $('.card_title___g5fi');
-    }
-
     get resultHeader() {
         return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
     }
@@ -27,10 +23,6 @@ class Search extends Basepage {
         return $('.aa-PanelLayout.aa-Panel--scrollable');
     }
 
-    get autosearch() {
-        return $$('li.aa-Item');
-    }
-    
     get autoSuggestionforMirror() {
         return $('section.aa-Source');
     }
@@ -42,22 +34,22 @@ class Search extends Basepage {
     get expectsearchText() {
         return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
     }
-   
+
     load () {
         return super.load();
-    }
-    
+    }  
+
     async searchText(item) {
         await this.searchInput.setValue(item);
         await this.searchIcon.click();
     }
 
-    async search(item) {
+    async searchProduct(item) {
         await this.searchText(item);
         await expect(this.resultHeader).toExist('Results for "Mirror"');
     }
 
-    async msg(item) {
+    async noMatchingResult(item) {
         await this.searchText(item);
         await expect(this.resultmsg).toExist('Oops! No matches for “abababa”');
     }
@@ -66,13 +58,12 @@ class Search extends Basepage {
         await this.searchText(item);
         await expect(this.expectsearchText).toExist('Results for "*!*#"');
     }
-    
-    async autoLetters(item) {
+    async firstThreeLetters(item) {
         await this.searchInput.setValue(item);
         await expect(this.autoSuggestionforMirror).toBeDisplayed();
     }
 
-    async autosearch(item) {
+    async autoSearch(item) {
         await this.searchInput.click();
         await expect(this.suggestionpane).toBeDisplayed();
         await browser.keys('ArrowDown');
@@ -81,5 +72,4 @@ class Search extends Basepage {
         await expect(this.expectsearchText).toExist('Results for ' + item);
     }
 }
-
 export default new Search();

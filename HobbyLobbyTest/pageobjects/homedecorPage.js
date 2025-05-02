@@ -1,4 +1,4 @@
-import { browser, expect } from '@wdio/globals'
+import { $$, browser, expect } from '@wdio/globals'
 import Basepage from './basePage';
 
 class Homedecor extends Basepage {
@@ -6,8 +6,12 @@ class Homedecor extends Basepage {
     get homeDecor() {
         return $$('[class="header_headerButton__VxgmY"]')[1];
     }
-    
+
     get dropdownList() {
+        return $('//section[contains(@class, "megaNavCard_megaNavCategories__raahz")]')
+    }
+    
+    get dropdownContainer() {
         return $$('//section[contains(@class, "megaNavCard_megaNavCategories__raahz")]//label')
     }
    
@@ -29,12 +33,13 @@ class Homedecor extends Basepage {
 
     async homedecorComponent() {
         await this.homeDecor.click();
+        await expect(this.dropdownList).toBeDisplayed();
     }
 
     async arrowDownHomedecor() {
         await this.homeDecor.click();
         await this.bathroomAndcloset.moveTo();
-        const dropdownItems = await this.dropdownList;
+        const dropdownItems = await this.dropdownContainer;
 
         for (let i = 0; i < dropdownItems.length; i++) {
             await browser.keys('ArrowDown');   
@@ -45,7 +50,7 @@ class Homedecor extends Basepage {
     async homeDecorDropdown() {
             await this.homeDecor.click();
             await browser.keys('ArrowDown');
-            const dropdownItems = await this.dropdownList;
+            const dropdownItems = await this.dropdownContainer;
 
             for (let i = 0; i < dropdownItems.length; i++) {
                await dropdownItems[i].click();
@@ -57,7 +62,7 @@ class Homedecor extends Basepage {
         await this.homeDecor.click();
         await this.exploreAllbtn.click();
         await expect(this.categoryHeader).toExist(text);
-        await browser.scroll(0, 1000);
+       
     }
 }
 

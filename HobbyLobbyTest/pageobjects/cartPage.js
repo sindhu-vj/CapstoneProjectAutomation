@@ -6,6 +6,18 @@ class Cart extends Basepage {
     get cartIcon() {
         return $('[data-testid="ShoppingCartOutlinedIcon"]');
     }
+    
+    get cartHeader() {
+        return $('.orderSummary_cartTitle__Z_gYu');
+    }
+    
+    get hobbyLobbyLogo() {
+        return $('.header_hl_logo__MCZ1m');
+    }
+
+    get storeLocator() {
+        return $('//div[@class="headerStoreLocator_headerStoreLocator__KktRM"]');
+    }
 
     get featuredItem() {
         return $('(//button[@class="common_submitButton__ydII0"])[1]');
@@ -13,10 +25,6 @@ class Cart extends Basepage {
 
     get currentPrice() {
         return $('span.sr-only');
-    }
-
-    get quantity() {
-        return $('.cartProductTile_quantity__n6mb9');
     }
 
     get orderSummary() {
@@ -62,21 +70,13 @@ class Cart extends Basepage {
     get viewCartbtn() {
         return $('.addToCart_checkoutLink__te9Ct');
     }
-
-    get quantityNum() {
+    
+    get itemQuantity() {
         return $('.cartProductTile_itemQuantity__k0vps');
-    }
-
-    get hobbyLobbyheader() {
-        return $('.header_imageButton__Hhqx_');
     }
 
     get outdoorGameProduct1() {
         return $('//div[@class="common_submitWrapper__D_k_e"]');
-    }
-
-    get closeIcon() {
-        return $('.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.mui-style-ncheqt');
     }
 
     get incrementBtn() {
@@ -100,50 +100,42 @@ class Cart extends Basepage {
     }
 
     get favoriteProductIconUnfilled() {
-        return $$('svg[data-testid="FavoriteBorderIcon"]')[1];
+        return $$('svg[data-testid="FavoriteBorderIcon"]')[1]; 
     }
  
     get favoriteProductIconFilled() {
-        return $$('svg[data-testid="FavoriteIcon"]')[0];
-    }
-
-    get viewListbutton() {
-        return $('a.shoppingListModal_viewList__I5YVn');
-    }
-
-    get myListHeader() {
-        return $('.lists_header__n7XKg');
+        return $('svg[data-testid="FavoriteIcon"]');
     }
 
     load () {
         return super.load();
-    }
-
-    cartPage() {
-        return browser.url(`https://www.hobbylobby.com/cart`);
-    }
+    }   
 
     async cartIconcheck() {
-        await this.cartIcon.click();
         await expect(this.cartIcon).toBeDisplayed();
+        await this.cartIcon.click();
+        await expect(this.cartHeader).toBeDisplayed();
     }
 
-    async homepageReturn() {
+    async returnToHomepage() {
         await this.cartIcon.click();
-        await this.hobbyLobbyheader.click();
+        await this.hobbyLobbyLogo.click();
+        await expect(this.storeLocator).toBeDisplayed();
     }
     
     async addingOneItem() {
-        await browser.scroll(0, 3000);
+        await browser.scroll(0, 2500);
         await this.featuredItem.click();
         await this.viewCartbtn.click();
     }
     
     async addingSingleItem() {
         await this.addingOneItem();
+        await expect(this.itemQuantity).toBeDisplayed();
         await expect(this.currentPrice).toBeDisplayed();
         await expect(this.orderSummary).toBeDisplayed();
         await expect(this.total).toBeDisplayed();
+        await expect(this.cartHeader).toBeDisplayed();
     }
 
     async addingMultipleItems() {
@@ -157,7 +149,7 @@ class Cart extends Basepage {
         await this.product3.click();
         await this.viewCartbtn.click();
 
-        const checkElements = [this.productTitle, this.currentPrice, this.quantity, this.orderSummary, this.checkout]
+        const checkElements = [this.productTitle, this.currentPrice, this.itemQuantity, this.orderSummary, this.checkout]
 
         for (const Elements of checkElements) {
             await expect(Elements).toBeDisplayed();
@@ -165,7 +157,7 @@ class Cart extends Basepage {
         await browser.scroll(0, 400);
     }
     
-     async deleteItems() {
+     async deletingItems() {
         await browser.scroll(0, 1300);
         await this.mothersdayGifts.click();
         await this.giftItem1.click();

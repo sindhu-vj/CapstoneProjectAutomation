@@ -4,29 +4,29 @@ import Homedecor from '../pageobjects/homedecorPage';
 import Cart from '../pageobjects/cartPage';
 
 describe('Hobby Lobby', () => {
-    it('should search for a product and display the results', async () => {
+    it.only('should search for a product and display the results', async () => {
         await Search.load();
-        await Search.search('Mirror');
+        await Search.searchProduct('Mirror');
     });
 
-    it('should display No matches found when entering a random text into input field', async () => {
+    it.only('should display No matches found when entering a random text into input field', async () => {
         await Search.load();
-        await Search.msg('abababa');
+        await Search.noMatchingResult('abababa');
     });
 
-    it('should display list of products when a random characters are entered into input field', async () => {
+    it.only('should display list of products when a random characters are entered into input field', async () => {
         await Search.load();
         await Search.specialCharacters('*!*#');
     });
 
-    it('should automatically suggest the product names when first 3 letters are entered', async () => {
+    it.only('should automatically suggest the product names when first 3 letters are entered', async () => {
         await Search.load();
-        await Search.autoLetters('Mir');
+        await Search.firstThreeLetters('Mir');
     });
 
-    it('Auto suggestions', async () => {
+    it.only('Auto suggestions', async () => {
         await Search.load();
-        await Search.autosearch('easter');
+        await Search.autoSearch('easter');
     });
 
     it('should change the color of weeklyad button when it is hovered over', async () => {
@@ -61,7 +61,7 @@ describe('Hobby Lobby', () => {
 
     it('should return to the homepage when HOBBY LOBBY logo is clicked', async () => {
         await Cart.load();
-        await Cart.homepageReturn();
+        await Cart.returnToHomepage();
     });
 
     it('should add one of the Featured products to the cart', async () => {
@@ -77,7 +77,7 @@ describe('Hobby Lobby', () => {
 
     it ('Should remove items from the cart when delete button is clicked', async () => {
         await Cart.load();
-        await Cart.deleteItems();
+        await Cart.deletingItems();
     });
 
     it('should increase the quantity of an item in the cart when (+) icon is clicked', async () => {
@@ -90,7 +90,7 @@ describe('Hobby Lobby', () => {
         await Cart.decreasingTheitems('summer outdoor games');
     });
 
-    it.only('should change the color of the favorite icon to red when clicked', async () => {
+    it('should change the color of the favorite icon to red when clicked', async () => {
         await Cart.load();
         await Cart.favoriteIcon();
     });
