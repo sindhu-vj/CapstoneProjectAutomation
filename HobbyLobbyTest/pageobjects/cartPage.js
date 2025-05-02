@@ -123,14 +123,14 @@ class Cart extends Basepage {
         await expect(this.storeLocator).toBeDisplayed();
     }
     
-    async addingOneItem() {
+    async addOneItem() {
         await browser.scroll(0, 2500);
         await this.featuredItem.click();
         await this.viewCartbtn.click();
     }
     
-    async addingSingleItem() {
-        await this.addingOneItem();
+    async addSingleItem() {
+        await this.addOneItem();
         await expect(this.itemQuantity).toBeDisplayed();
         await expect(this.currentPrice).toBeDisplayed();
         await expect(this.orderSummary).toBeDisplayed();
@@ -138,7 +138,7 @@ class Cart extends Basepage {
         await expect(this.cartHeader).toBeDisplayed();
     }
 
-    async addingMultipleItems() {
+    async addMultipleItems() {
         const products = [this.product1, this.product2];
 
         for (let i = 0; i < products.length; i++) {
@@ -157,7 +157,7 @@ class Cart extends Basepage {
         await browser.scroll(0, 400);
     }
     
-     async deletingItems() {
+     async deleteItems() {
         await browser.scroll(0, 1300);
         await this.mothersdayGifts.click();
         await this.giftItem1.click();
@@ -165,7 +165,7 @@ class Cart extends Basepage {
         await this.deleteBtn.click();
      }
 
-    async increasingTheitems(item) {
+    async increaseItems(item) {
         await this.searchInput.setValue(item);
         await this.searchIcon.click();
         await this.outdoorGameProduct1.click();
@@ -176,7 +176,7 @@ class Cart extends Basepage {
         }
     }
 
-    async decreasingTheitems(item) {
+    async decreaseItems(item) {
         await this.increasingTheitems(item);
         for (let i = 0; i < 5 ; i++) {
             await this.decrementBtn.click();

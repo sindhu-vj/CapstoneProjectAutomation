@@ -66,28 +66,28 @@ describe('Hobby Lobby', () => {
 
     it('should add one of the Featured products to the cart', async () => {
         await Cart.load();
-        await Cart.addingSingleItem();
+        await Cart.addSingleItem();
     });
 
     it('should add multiple items to the cart successfully', async () => {
         await Cart.load();
         await Search.searchText('Summer Toys');
-        await Cart.addingMultipleItems();
+        await Cart.addMultipleItems();
     });
 
     it ('Should remove items from the cart when delete button is clicked', async () => {
         await Cart.load();
-        await Cart.deletingItems();
+        await Cart.deleteItems();
     });
 
     it('should increase the quantity of an item in the cart when (+) icon is clicked', async () => {
         await Cart.load();
-        await Cart.increasingTheitems('summer outdoor games');
+        await Cart.increaseItems('summer outdoor games');
     });
 
     it('should decrease the quantity of an item in the cart when (-) icon is clicked', async () => {
         await Cart.load();
-        await Cart.decreasingTheitems('summer outdoor games');
+        await Cart.decreaseItems('summer outdoor games');
     });
 
     it('should change the color of the favorite icon to red when clicked', async () => {
