@@ -29,27 +29,27 @@ describe('Hobby Lobby', () => {
         await Search.autoSearch('easter');
     });
 
-    it.only('should change the color of weeklyad button when it is hovered over', async () => {
+    it('should change the color of weeklyad button when it is hovered over', async () => {
         await WeeklyAd.load();
         await WeeklyAd.checkHovercolor('rgba(0,0,0,0.87)');
     });
 
-    it.only('should display weeklyad page and its details when the WeeklyAd button is clicked ', async () => {
+    it('should display weeklyad page and its details when the WeeklyAd button is clicked ', async () => {
         await WeeklyAd.load();
         await WeeklyAd.weeklyAdflow();
     });
 
-    it.only('should display sub weekly Ad image when View the WeeklyAd button is clicked', async () => {
+    it('should display sub weekly Ad image when View the WeeklyAd button is clicked', async () => {
         await WeeklyAd.load();
         await WeeklyAd.viewAdbtn();
     });
 
-    it.only('should return to the Weekly Ad page when return to site link is clicked', async () => {
+    it('should return to the Weekly Ad page when return to site link is clicked', async () => {
         await WeeklyAd.load();
         await WeeklyAd.returnTosite();
     });
 
-    it.only('should enter an Email id in the input field to receive weeklyads', async () => {
+    it('should enter an Email id in the input field to receive weeklyads', async () => {
         await WeeklyAd.load();
         await WeeklyAd.signupCheck('dummyemail@example.com', 'Thank you for signing up');
     });
