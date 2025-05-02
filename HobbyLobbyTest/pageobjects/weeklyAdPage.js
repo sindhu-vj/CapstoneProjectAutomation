@@ -6,15 +6,11 @@ class WeeklyAd extends Basepage{
     get weeklyAdbtn() {
         return $('.header_weeklyAdButton__rWqDS');
     }
-    
-    get topTitle() {
-        return $('//h2[contains(text(), "Shop Weekly Ad")]')
-    }
 
     get weeklyAdbtnHeader() {
         return $('.header_weeklyAd__h1TpF');
     }
-
+    
     get weeklyAdmiddleThumbnail() {
         return $('.weeklyAd_weeklyAdMiddleThumbnail__3ulnp');
     }
@@ -23,13 +19,17 @@ class WeeklyAd extends Basepage{
         return $('.weeklyAd_weeklyAdTiles__g_bxW');
     }
     
-    weeklyAdAds(parameter) {
+    weeklyAd(parameter) {
         return $(`//section[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
     }
 
     weeklyAdtiles(parameter) {
         return $(`//div[contains(@class, "weeklyAd_weeklyAd${parameter}")]`)
      }
+
+    get topTitle() {
+        return $('//h2[contains(text(), "Shop Weekly Ad")]')
+    }
 
     get signupSection() {
         return $('.MuiPaper-root.MuiPaper-outlined.signUpSubscription_signupCard__Lc5lV.mui-style-1wuq9c7');
@@ -47,20 +47,8 @@ class WeeklyAd extends Basepage{
         return $('div.header_cartReturnDesk__DAqV_');
     }
 
-    get printThisweeklyads() {
-        return $('//button[contains(text(), "Print this week")]');
-    }
-
-    get cancelPrintbtn() {
-        return $('#background]');
-    }
-
     get subweeklyAdimage() {
         return $('#weekly-ad-image');
-    }
-
-    get getText() {
-        return $('h2.weeklyAd_weeklyAdTopTitle__dk4Nh');
     }
 
     get color() {
@@ -79,11 +67,7 @@ class WeeklyAd extends Basepage{
         return super.load();
     }
 
-    async checkText(item) {
-        await expect(this.getText).toHaveText(item);
-    }
-
-    async hoverColor(expectedcolor) {
+    async checkHovercolor(expectedcolor) {
         await this.weeklyAdbtn.moveTo();
         const colorProp = await this.weeklyAdbtnHeader.getCSSProperty('color');
         await expect(colorProp.value).toBe(expectedcolor);
@@ -91,22 +75,22 @@ class WeeklyAd extends Basepage{
 
     async weeklyAdflow() {
         await this.weeklyAdbtn.click();
-        await expect(await this.weeklyAdAds('MiddleThumbnail')).toBeDisplayed();
-        await expect(await this.weeklyAdAds('MiddleHighlightedAd')).toBeDisplayed();
+        await expect(await this.weeklyAd('MiddleThumbnail')).toBeDisplayed();
+        await expect(await this.weeklyAd('MiddleHighlightedAd')).toBeDisplayed();
         await expect(await this.weeklyAdtiles('Tiles')).toBeDisplayed();
         await browser.scroll(0, 5000);
         await expect(this.signupSection).toBeDisplayed();
+    }
+   
+    async navigateToWeeklyAd() {
+        await this.weeklyAdbtn.click();
+        await browser.scroll(0, 2000);
+        await this.viewTheWeeklyadbtn.click();
     }
     
     async viewAdbtn() {
         await this.navigateToWeeklyAd.call(this);
         await expect(this.subweeklyAdimage).toBeDisplayed();
-    }
-
-    async navigateToWeeklyAd() {
-        await this.weeklyAdbtn.click();
-        await browser.scroll(0, 2000);
-        await this.viewTheWeeklyadbtn.click();
     }
     
     async returnTosite() {
