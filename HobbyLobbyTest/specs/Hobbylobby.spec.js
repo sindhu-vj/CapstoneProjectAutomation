@@ -44,7 +44,7 @@ describe('Hobby Lobby', () => {
         await WeeklyAd.viewAdbtn();
     });
 
-    it('should return to the Weekly Ad page when return to site link is clicked', async () => {
+    it.only('should return to the Weekly Ad page when return to site link is clicked', async () => {
         await WeeklyAd.load();
         await WeeklyAd.returnTosite();
     });

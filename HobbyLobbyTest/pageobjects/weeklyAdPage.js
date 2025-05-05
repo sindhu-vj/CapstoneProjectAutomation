@@ -89,12 +89,12 @@ class WeeklyAd extends Basepage{
     }
     
     async viewAdbtn() {
-        await this.navigateToWeeklyAd.call(this);
+        await this.navigateToWeeklyAd();
         await expect(this.subweeklyAdimage).toBeDisplayed();
     }
     
     async returnTosite() {
-        await this.navigateToWeeklyAd.call(this);
+        await this.navigateToWeeklyAd();
         await this.returnTositeLink.click();
         await expect(this.topTitle).toBeDisplayed();
     }
