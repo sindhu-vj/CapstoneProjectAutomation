@@ -177,14 +177,14 @@ class Cart extends Basepage {
     }
 
     async decreaseItems(item) {
-        await this.increasingTheitems(item);
+        await this.increaseItems(item);
         for (let i = 0; i < 5 ; i++) {
             await this.decrementBtn.click();
         }
     }
 
     async favoriteIcon() {
-        await this.addingOneItem();
+        await this.addOneItem();
         await this.favoriteProductIconUnfilled.click();
         await expect(this.favoriteProductIconFilled).toBeDisplayed();
     }

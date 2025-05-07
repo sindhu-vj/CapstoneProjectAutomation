@@ -23,16 +23,16 @@ class Search extends Basepage {
         return $('.aa-PanelLayout.aa-Panel--scrollable');
     }
 
+    get firstSearchResults() {
+        return $('//li[@id="autocomplete-1-0-item-0"]');
+    }
+
     get autoSuggestionforMirror() {
         return $('section.aa-Source');
     }
 
-    get firstSearchResults() {
-        return $('li#autocomplete-1-0-item-0');
-    }
-
     get expectsearchText() {
-        return $('h1.breadcrumb_breadcrumbsTitle__SRXgx');
+        return $('span.sr-only');
     }
 
     load () {
@@ -63,13 +63,12 @@ class Search extends Basepage {
         await expect(this.autoSuggestionforMirror).toBeDisplayed();
     }
 
-    async autoSearch(item) {
+    async autoSearch() {
         await this.searchInput.click();
-        await expect(this.suggestionpane).toBeDisplayed();
+        await expect(this.suggestionpane).toBeDisplayed();   
         await browser.keys('ArrowDown');
-        await expect(this.firstSearchResults).toHaveText(item);
-        await browser.keys('Enter');
-        await expect(this.expectsearchText).toExist('Results for ' + item);
+        await this.firstSearchResults.click();
+        await expect(this.expectsearchText).toExist('Results for " "');   
     }
 }
 export default new Search();

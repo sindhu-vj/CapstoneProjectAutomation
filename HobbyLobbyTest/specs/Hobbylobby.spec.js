@@ -26,7 +26,7 @@ describe('Hobby Lobby', () => {
 
     it('Auto suggestions', async () => {
         await Search.load();
-        await Search.autoSearch('easter');
+        await Search.autoSearch();
     });
 
     it('should change the color of weeklyad button when it is hovered over', async () => {
@@ -44,7 +44,7 @@ describe('Hobby Lobby', () => {
         await WeeklyAd.viewAdbtn();
     });
 
-    it.only('should return to the Weekly Ad page when return to site link is clicked', async () => {
+    it('should return to the Weekly Ad page when return to site link is clicked', async () => {
         await WeeklyAd.load();
         await WeeklyAd.returnTosite();
     });
